@@ -207,6 +207,20 @@
 			status = "disabled";
 		};
 
+		usb: usb@ffe7040000 {
+			compatible = "thead,snps-dwc3", "snps,dwc3";
+			reg = <0xff 0xe7040000 0x0 0x10000>;
+			interrupts = <68>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			maximum-speed = "super-speed";
+			dr_mode = "host";
+			dma-mask = <0xf 0xffffffff>; 
+			snps,usb3_lpm_capable;
+			snps,usb_sofitpsync;
+			status = "okay";
+		};
+
 		uart3: serial@ffe7f04000 {
 			compatible = "snps,dw-apb-uart";
 			reg = <0xff 0xe7f04000 0x0 0x100>;
@@ -217,6 +231,54 @@
 			reg-io-width = <4>;
 			status = "disabled";
 		};
+
+		/*
+
+		miscsys_clk_gate: miscsys-clk-gate {
+			compatible = "xuantie,miscsys-gate-controller";
+			miscsys-regmap = <&misc_sysreg>;
+			tee-miscsys-regmap = <&tee_miscsys_reg>;
+			#clock-cells = <1>;
+			status = "okay";
+		};
+
+		misc_sysreg: misc_sysreg@ffec02c000 {
+			compatible = "xuantie,th1520-misc-sysreg", "syscon";
+			reg = <0xff 0xec02c000 0x0 0x1000>;
+		};
+
+		tee_miscsys_reg: tee_miscsys-reg@fffc02d000 {
+			compatible = "xuantie,th1520-miscsys-reg", "syscon";
+			reg = <0xff 0xfc02d000 0x0 0x1000>;
+			status = "okay";
+		};
+
+		usb: usb@ffec03f000 {
+			compatible = "xuantie,th1520-usb";
+			usb3-misc-regmap = <&misc_sysreg>;
+			reg = <0xff 0xec03f000 0x0 0x1000>;
+			xuantie,misc-sysreg = <&misc_sysreg>;
+			clocks = <&miscsys_clk_gate CLKGEN_MISCSYS_USB3_DRD_CLK>,
+					<&miscsys_clk_gate CLKGEN_MISCSYS_USB3_DRD_CTRL_REF_CLK>,
+					<&miscsys_clk_gate CLKGEN_MISCSYS_USB3_DRD_PHY_REF_CLK>,
+					<&miscsys_clk_gate CLKGEN_MISCSYS_USB3_DRD_SUSPEND_CLK>;
+			clock-names = "drd", "ctrl", "phy", "suspend";
+			#address-cells = <2>;
+			#size-cells = <2>;
+			ranges;
+
+			usb_dwc3: usb@ffe7040000 {
+				compatible = "snps,dwc3";
+				reg = <0xff 0xe7040000 0x0 0x10000>;
+				interrupts = <68 IRQ_TYPE_LEVEL_HIGH>;
+				dr_mode = "host";
+				snps,dis_u2_susphy_quirk;
+				snps,usb3_lpm_capable;
+				status = "okay";
+			};
+		};
+
+		*/
 
 		gpio2: gpio@ffe7f34000 {
 			compatible = "snps,dw-apb-gpio";
