@@ -3,3 +3,4 @@
 # Copyright (C) 2025 Yao Zi <ziyao@disroot.org>
 
 obj-$(CONFIG_CLK_THEAD_TH1520_AP) += clk-th1520-ap.o
+# obj-$(CONFIG_CLK_THEAD_TH1520_AP) += miscsys-gate.o
